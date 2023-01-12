@@ -21,13 +21,22 @@ def fifo(frameSize, data):
             pages.append(page)  # dodanie strony na jej koniec
     return page_faults
 
+def getData(filename="test.txt"):  # domyslna wartosc test.txt
+    """
+    Funkcja odpowiadajaca za odczyt danych z datasetu
+    """
+    data = []
+    file = open(filename)
+    for line in file:
+        data.append(int(line))
+    return data
 
 if __name__ == "__main__":
     """
     Glowna czesc programu, gdzie wywolywane sa
     wczesniej zadeklarowane funkcje.
     """
-    pages_to_access = [1,2,2,2,2,2,2]
-    page_faults = fifo(3, pages_to_access)
-    print(f'Pages accessed: {pages_to_access}')
+    page_faults = fifo(3, getData())
+    print(f'Pages accessed: {getData()}')
     print(f'Page faults: {page_faults}')
+    print(getData())
