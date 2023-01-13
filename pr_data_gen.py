@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 #-*-coding:UTF-8-*-
 
-# Dataset generator used to generate data for page replacement algorithms
+# Dataset generator used to generate data for page replacement algorithms simulations
 #
 # Franciszek Plisz 264425
 
