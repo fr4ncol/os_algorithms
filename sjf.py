@@ -17,7 +17,7 @@ def sjf_sim(data, numberOfProcesses):
     
     while True:
         if len(completed) == numberOfProcesses:
-            return completed
+            return completed  # zwrocenie listy zawierajaca czasy zakonczenia procesu
         i = 0
         while i < len(data):
             if data[i][0] <= timer:  # sprawdzenie czy dany proces juz dotarl
@@ -42,13 +42,14 @@ def avgWaitingTime(data):
     """
     sum = 0
     for i in data:
-        print(i)
         sum = i[2]-i[1]-i[0] + sum
     return sum/len(data)
 
-def getData(filename="test.txt"):    
+def getData(filename="dataSource/cpu_sched_source_file.txt"):  # domyslny plik do odczytu  
     """
     Funkcja odpowiadajaca za odczyt danych z datasetu
+    Indexy odpowiadaja odpowiednio:
+    0 - arrival time, 1 - burst time, 2 - id
     """
     data = []
     file = open(filename)
@@ -61,13 +62,26 @@ def getData(filename="test.txt"):
         data.append(splitted)
     return data
 
+def saveResults(result, inputData, filename="dataResults/cpu_sched_result_file.txt"):  # domyslne miejsce zapisu
+    """
+    Funkcja zapisujaca surowe dane.
+    """
+    file = open(filename, 'a+')  # dane do pliku sa dopisywane
+    file.write(f"Input data [arrival_time, burst_time, completion time]: {inputData} \n")
+    file.write(f"Average waiting time: {result} \n")
+    file.write("\n")    
+
 
 if __name__ == "__main__":
     """
     Glowna czesc programu, gdzie wywolywane sa
     wczesniej zadeklarowane funkcje.
     """        
-    data = getData()
+    #data = getData()
+    data = [[2,6],[5,2],[1,8],[0,3],[4,4]]
     print(data)
     solution = sjf_sim(data,len(data))
-    print(avgWaitingTime(solution))
+    print(solution)
+    avgWait=avgWaitingTime(solution)
+    print(avgWait)
+    saveResults(avgWait,solution)

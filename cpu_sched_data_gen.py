@@ -9,14 +9,14 @@ import random
 
 def gen(numberOfRecords, filename, randomRange):
     """
-    format: arrive_time, burst_time, index
+    format: arrive_time, burst_time, id
     """
     file = open(filename, 'w')
     for i in range(numberOfRecords):
         file.write(str(random.randint(0,randomRange))+';')  # arrival_time
         file.write(str(random.randint(1,randomRange))+';')  # burst_time
-        file.write(str(i)+'\n')
+        file.write(str(i)+'\n')  # id
 
 
 if __name__ == "__main__":
-    gen(10, 'test.txt', 9)
+    gen(10, 'dataSource/cpu_sched_source_file.txt', 9)
