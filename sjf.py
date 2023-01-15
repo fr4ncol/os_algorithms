@@ -66,10 +66,18 @@ def saveResults(result, inputData, filename="dataResults/cpu_sched_result_file.t
     """
     Funkcja zapisujaca surowe dane.
     """
+    arrival_times = []
+    burst_times = []
+    for i in inputData:
+        arrival_times.append(i[0])
+        burst_times.append(i[1])
     file = open(filename, 'a+')  # dane do pliku sa dopisywane
     file.write(f"Input data [arrival_time, burst_time, completion time]: {inputData} \n")
+    file.write(f"Arrival times: {arrival_times} \n")
+    file.write(f"Burst times: {burst_times} \n")
     file.write(f"Average waiting time: {result} \n")
-    file.write("\n")    
+    file.write("\n")
+    file.close()     
 
 
 if __name__ == "__main__":

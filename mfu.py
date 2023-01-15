@@ -66,7 +66,7 @@ def saveResults(result, inputData, filename="dataResults/pr_result_file.txt"):
     file.write(f"Number of pages: {pageCount} \n")
     file.write(f"MFU algorithm page faults: {result} \n")
     file.write("\n")
-
+    file.close()
 
 if __name__ == "__main__":
     """

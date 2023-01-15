@@ -41,6 +41,7 @@ def saveResults(result, inputData, filename="dataResults/pr_result_file.txt"):
     file.write(f"Number of pages: {pageCount} \n")
     file.write(f"FIFO algorithm page faults: {result} \n")
     file.write("\n")
+    file.close()
 
 
 
