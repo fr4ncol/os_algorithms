@@ -11,6 +11,8 @@ def roundRobin(data, quantum, numberOfProcesses):
     completed = []  # zakonczone procesy
     data = sorted(data, key=lambda x: x[0])  # sortowanie po czasach przyjscia
     while True:
+        print("Czas: ", timer)
+        print("Ukonczone: ", completed)
         if len(completed) == numberOfProcesses:
             return completed
         i = 0
@@ -20,8 +22,10 @@ def roundRobin(data, quantum, numberOfProcesses):
                 del data[i]
             else:
                 i += 1
+        print("Kolejka: ", queue)
         if len(queue)!=0:
             current_process = queue[0]
+            print("Aktualnie wykonywany (ID): ",current_process[2], "\n")
             queue.pop(0)  # usuwanie pierwszego elementu z kolejki (w razie nie zakonczenia procesu zostanie dodany na koniec)
             if current_process[1] > quantum:  # sprawdzenie czy zdolamy wykonac proces w czasie naszego quantum
                 current_process[1] = current_process[1] - quantum  # obliczanie czasu pozostalego do zakonczenia procesu
@@ -48,11 +52,15 @@ def avgWaitTime(inputData, completedData):
     sum = 0
     i = 0
     while i<len(inputData):
-        sum = (completedData[i][2] - inputData[i][1]) + sum
+        ct = completedData[i][2]  # completion time
+        bt = inputData[i][1]  # burst time
+        at = inputData[i][0]  # arrival time
+        tat = ct-at  # turnaround time
+        sum = (tat - bt) + sum
         i+=1
     return sum/len(inputData)
 
-def getData(filename="test.txt"):    
+def getData(filename="dataSource/cpu_sched_source_file.txt"):    
     """
     Funkcja odpowiadajaca za odczyt danych z datasetu
     """
@@ -67,14 +75,28 @@ def getData(filename="test.txt"):
         data.append(splitted)
     return data
 
+def saveResults(result, inputData, quantumValue, filename="dataResults/cpu_sched_result_file.txt"):  # domyslne miejsce zapisu
+    """
+    Funkcja zapisujaca surowe dane.
+    """
+    file = open(filename, 'a+')  # dane do pliku sa dopisywane
+    file.write(f"Input data [arrival_time, burst_time, completion time]: {inputData} \n")
+    file.write(f"Quantum value: {quantumValue} \n")
+    file.write(f"Average waiting time: {result} \n")
+    file.write("\n")    
+
 if __name__ == "__main__":
     """
     Glowna czesc programu, gdzie wywolywane sa
     wczesniej zadeklarowane funkcje.
-    """        
+    """      
+    quantum_time = 2  # ustawianie kwantu czasu
     data=getData()
-    print(roundRobin(data, 3, len(data)))
-    print(avgWaitTime(data, roundRobin(data, 3, len(data))))
+    print(data)
+    rr_solution = roundRobin(data, quantum_time, len(data))
+    data = getData()
+    avgTime = avgWaitTime(data, rr_solution)
+    saveResults(avgTime, rr_solution, quantum_time)
+    print(rr_solution)
+    print(avgTime)
         
-
-

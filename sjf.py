@@ -77,8 +77,7 @@ if __name__ == "__main__":
     Glowna czesc programu, gdzie wywolywane sa
     wczesniej zadeklarowane funkcje.
     """        
-    #data = getData()
-    data = [[2,6],[5,2],[1,8],[0,3],[4,4]]
+    data = getData()
     print(data)
     solution = sjf_sim(data,len(data))
     print(solution)
