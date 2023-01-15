@@ -43,8 +43,6 @@ def saveResults(result, inputData, filename="dataResults/pr_result_file.txt"):
     file.write("\n")
     file.close()
 
-
-
 if __name__ == "__main__":
     """
     Glowna czesc programu, gdzie wywolywane sa
