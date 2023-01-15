@@ -46,7 +46,7 @@ def mfu(frameSize, data):
 
     return page_faults
 
-def getData(filename="test.txt"):  # domyslna wartosc test.txt
+def getData(filename="dataSource/pr_source_file.txt"):  # domyslna wartosc lokalizacji pliku z danymi
     """
     Funkcja odpowiadajaca za odczyt danych z datasetu
     """
@@ -56,10 +56,26 @@ def getData(filename="test.txt"):  # domyslna wartosc test.txt
         data.append(int(line))
     return data
 
+def saveResults(result, inputData, filename="dataResults/pr_result_file.txt"):
+    """
+    Funkcja zapisujaca surowe dane.
+    """
+    pageCount = len(inputData)
+    file = open(filename, 'a+')
+    file.write(f"Input data: {inputData} \n")
+    file.write(f"Number of pages: {pageCount} \n")
+    file.write(f"MFU algorithm page faults: {result} \n")
+    file.write("\n")
+
 
 if __name__ == "__main__":
     """
     Glowna czesc programu, gdzie wywolywane sa
     wczesniej zadeklarowane funkcje.
     """
-    print(mfu(3, getData()))
+    data = getData()
+    page_faults = mfu(3, getData())  # algorytm mfu o ramce 3
+    print("Dane wejsciowe: ", data)
+    print("Page faults: ", page_faults)
+    saveResults(page_faults, data)
+

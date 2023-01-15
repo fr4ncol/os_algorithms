@@ -7,7 +7,7 @@
 
 def fifo(frameSize, data):
     """
-    Funkcja, ktora oblicza ilosc bledow stron.
+    Funkcja, ktora oblicza ilosc bledow stron.m
     Pozwala na uzycie dowolnej dlugosci ramki oraz
     dowolnej ilosci stron.
     """
@@ -21,7 +21,7 @@ def fifo(frameSize, data):
             pages.append(page)  # dodanie strony na jej koniec
     return page_faults
 
-def getData(filename="test.txt"):  # domyslna wartosc test.txt
+def getData(filename="dataSource/pr_source_file.txt"):  # domyslna wartosc lokalizacja pilku
     """
     Funkcja odpowiadajaca za odczyt danych z datasetu
     """
@@ -31,12 +31,27 @@ def getData(filename="test.txt"):  # domyslna wartosc test.txt
         data.append(int(line))
     return data
 
+def saveResults(result, inputData, filename="dataResults/pr_result_file.txt"):
+    """
+    Funkcja zapisujaca surowe dane.
+    """
+    pageCount = len(inputData)
+    file = open(filename, 'a+')  # dane do pliku sa dopisywane
+    file.write(f"Input data: {inputData} \n")
+    file.write(f"Number of pages: {pageCount} \n")
+    file.write(f"FIFO algorithm page faults: {result} \n")
+    file.write("\n")
+
+
+
 if __name__ == "__main__":
     """
     Glowna czesc programu, gdzie wywolywane sa
     wczesniej zadeklarowane funkcje.
     """
-    page_faults = fifo(3, getData())
-    print(f'Pages accessed: {getData()}')
-    print(f'Page faults: {page_faults}')
-    print(getData())
+    data = getData()
+    page_faults = fifo(3, getData())  # algorytm fifo o ramce 3
+    print("Dane wejsciowe: ", data)
+    print("Page faults: ", page_faults)
+    saveResults(page_faults, data)
+    
