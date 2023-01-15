@@ -61,7 +61,7 @@ def saveResults(result, inputData, filename="dataResults/pr_result_file.txt"):
     Funkcja zapisujaca surowe dane.
     """
     pageCount = len(inputData)
-    file = open(filename, 'a+')
+    file = open(filename, 'a+')  # dane do pliku sa dopisywane
     file.write(f"Input data: {inputData} \n")
     file.write(f"Number of pages: {pageCount} \n")
     file.write(f"MFU algorithm page faults: {result} \n")
