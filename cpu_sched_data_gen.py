@@ -16,7 +16,7 @@ def gen(numberOfRecords, filename, randomRange):
         file.write(str(random.randint(0,randomRange))+';')  # arrival_time
         file.write(str(random.randint(1,randomRange))+';')  # burst_time
         file.write(str(i)+'\n')  # id
-        file.close()
+    file.close()
 
 
 if __name__ == "__main__":

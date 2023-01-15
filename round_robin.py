@@ -98,7 +98,7 @@ if __name__ == "__main__":
     Glowna czesc programu, gdzie wywolywane sa
     wczesniej zadeklarowane funkcje.
     """      
-    quantum_time = 9  # ustawianie kwantu czasu
+    quantum_time = 3  # ustawianie kwantu czasu
     data=getData()
     print(data)
     rr_solution = roundRobin(data, quantum_time, len(data))
